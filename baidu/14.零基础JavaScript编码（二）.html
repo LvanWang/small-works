@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>14.零基础JavaScript编码（二）</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/8.css">
+<!--[if lt IE9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+</head>
+<body>
+
+  <h3>污染城市列表</h3>
+  <ul id="aqi-list">
+<!--   
+    <li>第一名：福州（样例），10</li>
+  	<li>第二名：福州（样例），10</li> -->
+  </ul>
+
+	<script type="text/javascript">
+	var aqiData = [
+	  ["北京", 90],
+	  ["上海", 50],
+	  ["福州", 10],
+	  ["广州", 50],
+	  ["成都", 90],
+	  ["西安", 100]
+	];
+
+	// (function () {
+	// 	var oul=document.getElementsByTagName('ul')[0];
+	// 	var ali='';
+	// 	aqiData.sort(function(a,b){return b[1]-a[1]})
+	// 	var j=-1
+	// 	var arr=['一','二','三','四','五','六']
+	//   	for (var i = 0; i < aqiData.length; i++) {
+	//   		if(aqiData[i][1]>60){
+	  			
+	//   			ali+='<li>'+'第'+arr[++j]+'名:'+aqiData[i][0]+','+aqiData[i][1]+'</li>';
+
+	  			
+	//   		}
+	//   	}
+	//   	oul.innerHTML+=ali;
+	//   	ali='';
+	//   	for (var i = 0; i < aqiData.length; i++) {
+	//   		if(aqiData[i][1]<=60){
+	//   			ali+='<li>'+'第'+arr[++j]+'名'+aqiData[i][0]+':'+aqiData[i][1]+'</li>';
+	// 		}	  	
+	//   	}
+
+	//   	oul.innerHTML=oul.innerHTML+'<h3>污染指数未达到60的</h3>'+ali;
+
+	// })();
+	var ali1='',ali2=''
+	aqiData.sort(function(a,b){return b[1]-a[1]})
+		var arr=['一','二','三','四','五','六']
+	  	for (var i = 0,j=-1; i < aqiData.length;i++) {
+	  		if(aqiData[i][1]>60){
+	  			ali1+='<li>'+'第'+arr[i]+'名:'+aqiData[i][0]+','+aqiData[i][1]+'</li>';
+	  		}else{
+	  			ali2+='<li>'+'第'+arr[++j]+'名'+aqiData[i][0]+':'+aqiData[i][1]+'</li>';
+	  			if (j==arr.length-1) {
+	  				break
+	  			}
+			}
+	  	}
+	  	$('#aqi-list').html(ali1+'<h3>污染指数未达到60的</h3>'+ali2)
+
+	</script>
+</body>
+</html>
+
+

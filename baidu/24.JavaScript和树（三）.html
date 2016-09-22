@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>23.JavaScript和树（二）</title>
+<style type="text/css">
+  #box{
+  	min-width: 1190px;
+  	min-height:470px 
+  }
+  div{
+    padding:10px;
+    margin: 20px;
+    border: 1px solid #000;
+    min-width:30px;
+    min-height:30px;
+    display: inline-block;
+    border-radius: 10px
+  }
+    input,button{
+    width: 80px;
+    height: 30px;
+    margin: 20px;
+    float: left;
+  }
+  input{
+    width: 120px;
+    height: 25px;
+  }
+form{
+	float: left;
+	margin: 30px auto;
+}
+</style>
+<script type="text/javascript">
+  window.onload=function () {
+    var adiv=document.querySelectorAll('div');
+    var abtn=document.querySelectorAll('button');
+    var inp=document.querySelectorAll('input');
+    var sd=0;
+    var arr=[];
+    var num=-1;
+    divclick()
+     abtn[0].onclick=function(e){
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+	 	if(inp[0].value=='请输入内容'||inp[0].value==''){
+			alert('请输入内容!')
+			return
+		}
+	    move(e)
+	    disabled()
+	    fn1(adiv[0],inp[0].value)
+         
+    }
+    abtn[1].onclick=function(e){
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    	if(inp[0].value=='请输入内容'||inp[0].value==''){
+			alert('请输入内容!')
+			return
+		}
+        move(e)
+        disabled()
+        fn2(adiv[0],arr)
+        for (var i = 0; i < arr.length; i++) {
+          fn3(arr[i],inp[0].value)
+        }
+    }
+
+    abtn[2].onclick=function(e){
+    	e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+    	if(inp[0].value=='请输入内容'||inp[0].value==''){
+    		alert('请输入内容!')
+    		return
+    	}
+
+    	var odiv=document.createElement('div')
+    	for(var i=0;i<adiv.length;i++){
+    		if (adiv[i].onOff) {
+    			odiv.innerHTML=inp[0].value;
+    			adiv[i].appendChild(odiv);
+
+    		}
+    		adiv[i].style.backgroundColor='';
+    	}
+    	divclick()
+
+    }
+    abtn[3].onclick=function(e){
+    	e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    	if(adiv[0].onOff)alert('根目录不可被删除！')
+    	for(var i=1;i<adiv.length;i++){
+    		if (adiv[i].onOff) {
+    			adiv[i].parentNode.removeChild(adiv[i]);
+
+    		}
+    	}
+
+    }
+    inp[0].onfocus=function(){
+      if (this.value=='请输入内容') {
+        this.value='';
+      }
+      this.onblur=function(){
+        if (this.value=='') {
+          this.value='请输入内容'
+        }
+      }
+    }
+    function disabled(){
+      for (var i = 0; i < abtn.length; i++) {
+          abtn[i].disabled=!abtn[i].disabled
+      }
+    }
+    function move(e){
+    	e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+      for (var i = 0; i < adiv.length; i++) {
+        adiv[i].style.backgroundColor=""
+      }
+    }
+    function divclick(){
+    	adiv=document.querySelectorAll('div')
+	    for (var i = 0; i < adiv.length; i++) {
+	    	adiv[i].onOff=false;
+			adiv[i].onclick=function(e){
+				event.stopPropagation ? e.stopPropagation() : event.cancelBubble = true;
+				if(this.onOff){
+					this.style.backgroundColor='';
+					this.onOff=false;
+					return
+				}
+				for (var i = 0; i < adiv.length; i++) {
+					adiv[i].style.backgroundColor='';
+					adiv[i].onOff=false;
+				}
+
+				this.onOff=true;
+				this.style.backgroundColor='#ccc';
+				
+
+			}
+	    }
+	}
+    function fn1(obj,val){
+      if (!obj||obj.tagName!=='DIV') {return}
+      if (val) {
+        fn3(obj,val)
+        fn1(obj.firstElementChild||obj.firstChild,val)
+        fn1(obj.nextElementSibling||obj.nextSibling,val)
+      }else{
+        fn3(obj)
+        fn1(obj.firstElementChild||obj.firstChild)
+        fn1(obj.nextElementSibling||obj.nextSibling)
+      }
+      
+    }
+
+    function fn2(obj,arr){
+      if(obj&&obj.tagName==='DIV'){
+        arr.push(obj)
+        fn2(obj.nextElementSibling,arr)
+        obj=arr[++num]
+        fn2(obj.firstElementChild,arr)
+      }
+    }
+
+
+    function fn3(obj,val){
+      var a=new RegExp('^'+val+'\\b')
+      if (val&&obj.innerText.search(a)!=-1) {
+        setTimeout(function(){obj.style.backgroundColor="yellow";}
+        ,sd*700)
+      }else{
+        setTimeout(function(){obj.style.backgroundColor="#aaa";
+        setTimeout(function(){obj.style.backgroundColor="";},400)}
+      ,sd*700)
+      }
+      
+      sd++
+      if (sd==adiv.length) {
+      setTimeout(function(){disabled()},sd*700)
+      sd=0;
+      }
+    }
+  }
+</script>
+</head>
+<body>
+<div id="box">0
+  <div>1
+    <div>4
+      <div>9</div>
+      <div>10</div>
+      <div>11</div>
+      <div>12</div>
+    </div>
+    <div>5</div>
+    <div>6
+      <div>13</div>
+      <div>14</div>
+    </div>  
+  </div>
+  <div>2
+    <div>7
+      <div>15</div>
+      <div>16</div>
+      <div>17</div>
+    </div>
+    <div>8
+      <div>18
+        <div>20</div>
+      </div>
+      <div>19</div>
+    </div>
+  </div>
+  <div>3</div>
+</div>
+<form>
+<input value="请输入内容">
+<button>深度搜索</button>
+<button>广度搜索</button>
+<button>添加</button>
+<button>删除</button>
+</form>
+
+</body>
+</html>

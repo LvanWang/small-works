@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>17.零基础JavaScript编码（五）</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/17.css">
+<!--[if lt IE 9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+
+</head>
+<body>
+  <fieldset id="time">
+    <legend>请选择日期粒度</legend>
+    <label class="le"><input name="gra-time" value="day" type="radio" ><span>日</span></label>
+    <label class="le"><input name="gra-time" value="week" type="radio"><span>周</span></label>
+    <label class="le"><input name="gra-time" value="month" type="radio"><span>月</span></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>请选择查看的城市</legend>
+    <select id="select">
+      <option>请选择城市</option>
+      <option>北京</option>
+      <option>上海</option>
+      <option>广州</option>
+      <option>深圳</option>
+      <option>成都</option>
+      <option>西安</option>
+      <option>福州</option>
+      <option>厦门</option>
+      <option>沈阳</option>
+    </select>
+  </fieldset>
+  <div id="bt">
+  	<p>当前城市:<span class="span1"></span></p>
+  	<p><span class="span2"></span>统计图</p>
+  </div>
+  <div class="wrap">
+  	<div class="y-zhou">
+  		<span>300</span>
+      <span>275</span>
+  		<span>250</span>
+      <span>225</span>
+  		<span>200</span>
+      <span>175</span>
+  		<span>150</span>
+      <span>125</span>
+  		<span>100</span>
+      <span>75</span>
+      <span>50</span>
+  		<span>25</span>
+  		<span>0</span>
+  	</div>
+  	<ul class="ul">
+  		<li data-value='day'></li>
+  		<li data-value='week'></li>
+  		<li data-value='month'></li>
+  	</ul>
+  </div>
+</body>
+</html>
+
+<script type="text/javascript" src="js/17.js"></script>
+

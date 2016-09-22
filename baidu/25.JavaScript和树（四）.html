@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>25.JavaScript和树（四）</title>
+<style type="text/css">
+  .clear:after{content:'';display:block;clear:both;}  
+  .clear{
+  	zoom:1;
+  	width: 650px;
+  	margin: 20px auto;
+  	position:relative;
+  } 
+  legend{
+  	font: 30px/30px '微软雅黑'
+  }
+ 
+  input,button{
+    width: 80px;
+    height: 30px;
+    margin: 20px;
+    float: left;
+  }
+  input{
+    width: 120px;
+    height: 25px;
+  } 
+  #box{
+  	float: left;
+  	margin:70px auto;
+  	width: 290px;
+  	font-size: 18px;
+  	line-height: 30px;
+  	display: block;
+  }
+  
+   div{
+  	margin: 1px;
+    padding-left:30px;
+    display: none;
+  }
+  p{
+  	height: 32px;
+  	cursor: pointer;
+  	margin: 0;
+  }
+  p:hover{
+  	background: #aaa;
+  }
+  span{
+  	display: inline-block;
+  	margin-right:5px; 
+  	width: 0;
+  	height: 0;
+  	border-left: 5px solid #000;
+  	border-top: 5px solid transparent;
+  	border-bottom: 5px solid transparent;
+  }
+  .mark>p{
+  	background: #aaa;
+  }
+  .yellow>p{
+  	background: yellow;
+  }
+  .show>p>span{
+  	border-left: 5px solid transparent;
+  	border-top: 5px solid #000;
+  	border-right: 5px solid transparent;
+  }
+  .show>div{
+  	display: block;
+  }
+</style>
+<script type="text/javascript">
+  window.onload=function () {
+    var adiv=document.querySelectorAll('div');
+    var abtn=document.querySelectorAll('button');
+    var inp=document.querySelectorAll('input');
+    var sd=0;
+    var arr=[];
+    var num=-1;
+    divclick()
+     abtn[0].onclick=function(e){
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+	 	if(inp[0].value=='请输入内容'||inp[0].value==''){
+			alert('请输入内容!')
+			return
+		}
+		
+	    disabled()
+	    fn1(adiv[0],inp[0].value) 
+    }
+
+    abtn[1].onclick=function(e){
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    	if(inp[0].value=='请输入内容'||inp[0].value==''){
+			alert('请输入内容!')
+			return
+		}
+        disabled()
+        fn2(adiv[0],arr)
+        for (var i = 0; i < arr.length; i++) {
+          fn3(arr[i],inp[0].value)
+        }
+    }
+
+    abtn[2].onclick=function(e){
+    	e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+    	if(inp[0].value=='请输入内容'||inp[0].value==''){
+    		alert('请输入内容!')
+    		return
+    	}
+    	var odiv=document.createElement('div')
+    	for(var i=0;i<adiv.length;i++){
+    		if (adiv[i].className.indexOf('mark')!=-1) {
+    			odiv.innerHTML='<p>'+inp[0].value+'</p>'
+    			if(adiv[i].innerHTML.substr(0,4)!='<p><')adiv[i].innerHTML=adiv[i].innerHTML.replace((/^<p>/),'<p><span></span>')
+    			adiv[i].appendChild(odiv);
+
+			}
+
+    	}
+    	divclick()
+
+    }
+    abtn[3].onclick=function(e){
+    	e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    	adiv=document.querySelectorAll('div')
+    	if(adiv[0].className.indexOf('mark')!=-1)alert('根目录不可被删除！')
+    	for(var i=1;i<adiv.length;i++){
+    		if (adiv[i].className.indexOf('mark')!=-1) {
+    			if(!adiv[i].parentNode.childNodes[4]||adiv[i].parentNode.childNodes[4].tagName!=='DIV')
+    				adiv[i].parentNode.innerHTML='<p>'+adiv[i].parentNode.innerHTML.match(/\d+/)[0]+'</p>'
+    			else
+    				adiv[i].parentNode.removeChild(adiv[i])
+    		}
+    	}
+
+    }
+    inp[0].onfocus=function(){
+      if (this.value=='请输入内容') {
+        this.value='';
+      }
+      this.onblur=function(){
+        if (this.value=='') {
+          this.value='请输入内容'
+        }
+      }
+    }
+    function disabled(){
+      for (var i = 0; i < abtn.length; i++) {
+          abtn[i].disabled=!abtn[i].disabled
+      }
+      
+    }
+    function divclick(){
+    	adiv=document.querySelectorAll('div')
+	    for (var i = 0; i < adiv.length; i++) {
+	    	adiv[i].onOff=false;
+			adiv[i].onclick=function(e){
+				var aclass=this.className
+				event.stopPropagation ? e.stopPropagation() : event.cancelBubble = true;
+				for (var i = 0; i < adiv.length; i++) {
+					if(adiv[i].className.indexOf('show')!=-1)adiv[i].className='show';
+					else adiv[i].className=''
+				}
+				if(aclass=='show'||aclass=='mark show'){
+					this.className='';
+					return
+				}
+				this.className='mark show';
+			}
+	    }
+	}
+    function fn1(obj,val){
+      if (obj) {
+      	if (obj.tagName==='DIV') {
+      		fn3(obj,val)
+	        fn1(obj.firstElementChild||obj.firstChild,val)
+	        fn1(obj.nextElementSibling||obj.nextSibling,val)
+      	}else{
+	        fn1(obj.nextElementSibling||obj.nextSibling,val)
+	    }
+      }
+
+    }
+
+    function fn2(obj,arr){
+      if(obj){
+      	if (obj.tagName==='DIV') {
+      		arr.push(obj)
+        	fn2(obj.nextElementSibling,arr)
+        	obj=arr[++num]
+       	 	fn2(obj.firstElementChild,arr)
+      	}else{
+        	fn2(obj.nextElementSibling,arr)
+	    }
+      }
+    }
+
+
+    function fn3(obj,val){
+      var a=new RegExp('^<p>(<span><\/span>)?'+val+'\\b')
+      obj.className='mark';
+      if (obj.innerHTML.search(a)!=-1) {
+        setTimeout(function(){
+        	obj.className="mark yellow show";
+    	},sd*700)
+      }else{
+        setTimeout(function(){
+        	obj.className="mark show";
+        	setTimeout(function(){obj.className="show";},400)
+        },sd*700)
+      }
+      
+      sd++
+      if (sd==adiv.length) {
+      setTimeout(function(){disabled();},sd*700)
+      sd=0;
+      }
+    }
+  }
+</script>
+</head>
+<body>
+<fieldset class="clear">
+<legend>我是标题</legend>
+<input value="请输入内容">
+<button>深度搜索</button>
+<button>广度搜索</button>
+<button>添加</button>
+<button>删除</button>
+<div id="box"><p><span></span>0</p>
+  <div><p><span></span>1</p>
+    <div><p><span></span>4</p>
+      <div><p>9</p></div>
+      <div><p>10</p></div>
+      <div><p>11</p></div>
+      <div><p>12</p></div>
+    </div>
+    <div><p>5</p></div>
+    <div><p><span></span>6</p>
+      <div><p>13</p></div>
+      <div><p>14</p></div>
+    </div>  
+  </div>
+  <div><p><span></span>2</p>
+    <div><p><span></span>7</p>
+      <div><p>15</p></div>
+      <div><p>16</p></div>
+      <div><p>17</p></div>
+    </div>
+    <div><p><span></span>8</p>
+      <div><p><span></span>18</p>
+        <div><p>20</p></div>
+      </div>
+      <div><p>19</p></div>
+    </div>
+  </div>
+  <div><p>3</p></div>
+</div>
+</fieldset>
+</body>
+</html>	

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>19.基础JavaScript练习（二）</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/8.css">
+<!--[if lt IE9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/19.js"></script>
+<style type="text/css">
+	input{
+		margin: 10px
+	}
+	#box{
+		display: -webkit-flex;		
+		display: -ms-flexbox;
+		display: flex;
+
+		-webkit-align-items::flex-end;
+		-ms-flex-align::flex-end;
+		align-items:flex-end;
+
+		height: 120px;
+	}
+	#box>div{
+		width: 20px;
+		background: blue;
+		margin: 10px;
+
+	}
+</style>
+</head>
+<body>
+<input type="text"><input type="button" value="左侧入"><input type="button" value="右侧入"><input type="button" value="左侧出"><input type="button" value="右侧出"><input type="button" value="随机生成"><input type="button" value="排序1">
+<input type="button" value="排序2"><input type="button" value="排序3">
+<div id="box"></div>
+</body>
+</html>
+
+

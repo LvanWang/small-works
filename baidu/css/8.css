@@ -1,0 +1,53 @@
+
+.box{
+	border:1px solid #999;
+	width: 90%;
+	margin: 20px auto;
+	padding:10px;
+}
+.box>div{
+	box-sizing: border-box;
+	padding: 10px;
+	float: left;
+}
+.basis{
+	border:1px solid #999;
+	background: #eee;
+	height: 50px;
+	
+}
+@media (min-width:768px ) {
+	.box1,.box2,.box3{
+		width: 33.3%;
+	}
+	.box4,.box6{
+		width: 25%
+	}
+	.box5,.box11{
+		width: 50%
+	}
+	.box7,.box8{
+		width: 8%
+	}
+	.box9,.box10{
+		width: 17%
+	}
+	
+}
+@media (max-width:768px ) {
+	.box1,.box2,.box5{
+	width: 50%;
+	}
+	.box3{
+		width: 100%
+	}
+	.box4,.box6,.box10,.box11{
+		width: 25%
+	}
+	.box7,.box8{
+		width: 16.7%
+	}
+	.box9{
+		width: 66.6%
+	}
+}

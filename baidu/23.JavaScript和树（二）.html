@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>23.JavaScript和树（二）</title>
+<style type="text/css">
+  div{
+    padding:10px;
+    margin: 20px;
+    border: 1px solid #000;
+    float: left;
+  }
+    input,button{
+    width: 80px;
+    height: 30px;
+    margin: 20px;
+    float: left;
+  }
+  input{
+    width: 120px;
+    height: 25px;
+  }
+
+</style>
+<script type="text/javascript">
+  window.onload=function () {
+    var adiv=document.querySelectorAll('div');
+    var abtn=document.querySelectorAll('button');
+    var inp=document.querySelector('input');
+    var sd=0;
+    var arr=[];
+    var num=-1;
+    abtn[0].onclick=function(){
+      move()
+      disabled()
+      fn1(adiv[0])
+         
+    }
+     abtn[2].onclick=function(){
+      move()
+      disabled()
+      fn1(adiv[0],inp.value)
+         
+    }
+    abtn[1].onclick=function(){
+        move()
+        disabled()
+        fn2(adiv[0],arr)
+        for (var i = 0; i < arr.length; i++) {
+          fn4(arr[i])
+        }
+    }
+    abtn[3].onclick=function(){
+        move()
+        disabled()
+        fn2(adiv[0],arr)
+        for (var i = 0; i < arr.length; i++) {
+          fn4(arr[i],inp.value)
+        }
+    }
+    inp.onfocus=function(){
+      if (this.value=='请输入搜索信息') {
+        this.value='';
+      }
+      this.onblur=function(){
+        if (this.value=='') {
+          this.value='请输入搜索信息'
+        }
+      }
+    }
+    function disabled(){
+      for (var i = 0; i < abtn.length; i++) {
+          abtn[i].disabled=!abtn[i].disabled
+      }
+    }
+    function move(){
+      for (var i = 0; i < adiv.length; i++) {
+        adiv[i].style.backgroundColor=""
+      }
+    }
+
+    function fn1(obj,val){
+      if (!obj||obj.tagName!=='DIV') {return}
+      if (val) {
+        fn4(obj,val)
+        fn1(obj.firstElementChild||obj.firstChild,val)
+        fn1(obj.nextElementSibling||obj.nextSibling,val)
+      }else{
+        fn4(obj)
+        fn1(obj.firstElementChild||obj.firstChild)
+        fn1(obj.nextElementSibling||obj.nextSibling)
+      }
+      
+    }
+
+    function fn2(obj,arr){
+      if(obj&&obj.tagName==='DIV'){
+        arr.push(obj)
+        fn2(obj.nextElementSibling,arr)
+        obj=arr[++num]
+        fn2(obj.firstElementChild,arr)
+      }
+    }
+
+
+    function fn4(obj,val){
+      var a=new RegExp('^'+val+'\\b')
+      if (val&&obj.innerText.search(a)!=-1) {
+        setTimeout(function(){obj.style.backgroundColor="yellow";}
+        ,sd*700)
+      }else{
+        setTimeout(function(){obj.style.backgroundColor="#aaa";
+        setTimeout(function(){obj.style.backgroundColor="";},400)}
+      ,sd*700)
+      }
+      
+      sd++
+      if (sd==adiv.length) {
+      setTimeout(function(){disabled()},sd*700)
+      sd=0;
+      }
+    }
+  }
+</script>
+</head>
+<body>
+<div>0
+  <div>1
+    <div>4
+      <div>9</div>
+      <div>10</div>
+      <div>11</div>
+      <div>12</div>
+    </div>
+    <div>5</div>
+    <div>6
+      <div>13</div>
+      <div>14</div>
+    </div>  
+  </div>
+  <div>2
+    <div>7
+      <div>15</div>
+      <div>16</div>
+      <div>17</div>
+    </div>
+    <div>8
+      <div>18
+        <div>20</div>
+      </div>
+      <div>19</div>
+    </div>
+  </div>
+  <div>3</div>
+</div>
+<button>深度</button>
+<button>广度</button>
+<input value="请输入搜索信息"></input>
+<button>深度搜索</button>
+<button>广度搜索</button>
+</body>
+</html>

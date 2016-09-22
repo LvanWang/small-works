@@ -1,0 +1,49 @@
+body{
+  margin: 0;
+  padding: 20px;
+}
+a{
+  width: 80px;
+  display: block;
+  margin: 20px; 
+}
+img{
+  width: 80px;
+  height: 80px;
+}
+.clear:after{content:'';display:block;clear:both;}  
+.clear{zoom:1;}
+
+.bg{
+  background: #fff;
+}
+.bor{
+  border: 1px solid #999;
+}
+#main{
+  position: relative;
+  background: #eee;
+}
+#logoLeft{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 200px;
+}
+#logoLeft p{
+  position: absolute;
+  top: 20px;
+  left: 120px;
+  margin: 0;
+}
+#center{
+  margin: 20px 160px 20px 240px;
+  padding: 20px;
+  word-wrap:break-word;
+  word-break:break-all; 
+}
+#logoRight{
+  width: 120px;
+  float: right;
+  margin: 20px
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>22.JavaScript和树（一）</title>
+<style type="text/css">
+  div{
+    padding:20px;
+    margin: 20px;
+    border: 1px solid #000;
+    float: left;
+  }
+  button{
+    width: 80px;
+    height: 30px;
+    margin: 20px;
+    float: left;
+  }
+
+
+</style>
+<script type="text/javascript">
+  window.onload=function () {
+    var adiv=document.getElementsByTagName('div');
+    var abtn=document.getElementsByTagName('button');
+    var sd=0;
+    abtn[0].onclick=function(){
+      disabled()
+      fn1(adiv[0])
+         
+    }
+    abtn[1].onclick=function(){
+        disabled()
+        fn2(adiv[0])
+    }
+    abtn[2].onclick=function(){
+        disabled()
+        fn3(adiv[0])
+    }
+
+
+    function disabled(){
+      for (var i = 0; i < abtn.length; i++) {
+          abtn[i].disabled=!abtn[i].disabled
+      }
+    }
+
+    function fn1(obj){
+      if (!obj) {return}
+      fn4(obj)
+      fn1(obj.firstElementChild||obj.firstChild)
+      fn1(obj.lastElementChild||obj.lastChild)
+    }
+    function fn2(obj){
+      if (!obj) {return}
+      
+      fn2(obj.firstElementChild||obj.firstChild)
+      fn4(obj)
+      fn2(obj.lastElementChild||obj.lastChild)
+      
+    }
+    function fn3(obj){
+      if (!obj) {return}
+      
+      fn3(obj.firstElementChild||obj.firstChild)
+      fn3(obj.lastElementChild||obj.lastChild)
+      fn4(obj)
+      
+    }
+    function fn4(obj){
+      setTimeout(function(){obj.style.backgroundColor="#aaa";
+      setTimeout(function(){obj.style.backgroundColor="";},400)},sd*700)
+      sd++
+      if (sd==adiv.length) {
+      setTimeout(function(){disabled()},sd*700)
+      sd=0;
+      }
+    }
+  }
+</script>
+</head>
+<body>
+<div>
+  <div>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<button>前序</button>
+<button>中序</button>
+<button>后序</button>
+</body>
+</html>
