@@ -1,0 +1,146 @@
+@media only screen { html { font-size: 100px; } }
+@media only screen and (max-width: 479px) and (min-width: 321px) { html { font-size: 70px; } }
+@media only screen and (max-width: 320px) { html { font-size: 50px; } }
+p,h1,h2,h3,a{
+	font-family: "微软雅黑";
+}
+body{
+	max-width: 800px;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+header{
+	position: relative;
+	text-align: center;
+	height: 62px;
+	color: #fff;
+	background: #91D4DA;
+}
+header h1{
+	font-size:0.4rem;
+	line-height:0.6rem;
+}
+header a{
+	display: inline-block;
+	background: url(../img/11.png) no-repeat 0 16px  ;
+	padding-left:24px; 
+	position: absolute;
+	left: 1.5%;
+	color: #fff;
+	font-size: 24px;
+	line-height:62px;
+}
+nav ul{
+	position: relative;
+}
+nav li{
+	float: left;
+	width: 20%;
+	height: 64px;
+	font-size:28px;
+	text-align: center;
+	line-height: 64px;
+}
+.move{
+	position: absolute;
+	height: 4px;
+	background: #91D4DA;
+	bottom: 0; 
+	left: 0;
+	-webkit-transition: left 0.4s	ease-in-out;
+	-moz-transition:left 0.4s	ease-in-out;
+	transition:left 0.4s	ease-in-out;
+}
+nav li:nth-child(2):hover~.move{
+	left: 20%
+}
+nav li:nth-child(3):hover~.move{
+	left: 40%
+}
+nav li:nth-child(4):hover~.move{
+	left: 60%
+}
+nav li:nth-child(5):hover~.move{
+	left: 80%
+}
+#tabImg img{
+	width: 100%;
+}
+#tabImg ul{
+	margin:0 auto;
+	padding-bottom:20px; 
+	width: 90%;
+	border-bottom:2px solid #ccc;
+}
+#tabImg li{
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+#tabImg li img{
+	width: 80%
+}
+#tabImg li a{
+	font-size: 26px;
+	margin: 30px auto;
+	border-radius: 35px;
+}
+#subfield{
+	border-bottom:20px solid #ccc;
+	margin-bottom: 20px;
+}
+#subfield li{
+	float: left;
+	width: 33.3%;
+	margin:30px 0;
+	box-sizing: border-box;
+	text-align:center;
+}
+#subfield li:nth-child(2){
+	border-left: 2px solid #ccc;
+	border-right: 2px solid #ccc;
+}
+#subfield li div{
+	height: 2rem;
+
+}
+#subfield li img{
+	width: 80%
+}
+#subfield li h2{
+	font-size: 0.4rem;
+	line-height: 0.6rem;
+}
+#subfield li p{
+	font-size: 0.3rem;
+}
+.module{
+	border-bottom:20px solid #ccc 
+
+}
+.module h3,.module div{
+	width: 90%;
+	margin:0 auto;
+}
+.module h3{
+	border-bottom: 2px solid #ccc;
+	font-size: 50px;
+	line-height: 100px;
+}
+.module img{
+	float: left;
+	border: 1px solid orange;
+	width: 20%;
+}
+.module ul{
+	float: left;
+	width: 70%;
+	height: 100%
+}
+.module li{
+	float: left;
+	width: 50%;
+	height: 50%;
+}

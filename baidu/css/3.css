@@ -1,6 +1,7 @@
 body{
   margin: 0;
   padding: 20px;
+  min-width:680px;
 }
 a{
   width: 80px;
