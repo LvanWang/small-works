@@ -1,11 +1,12 @@
-@media only screen { html { font-size: 100px; } }
-@media only screen and (max-width: 479px) and (min-width: 321px) { html { font-size: 70px; } }
-@media only screen and (max-width: 320px) { html { font-size: 50px; } }
+@media only screen { html { font-size: 90px; } }
+@media only screen and (max-width: 479px) and (min-width: 321px) { html { font-size: 60px; } }
+@media only screen and (max-width: 320px) { html { font-size: 40px; } }
 p,h1,h2,h3,a{
 	font-family: "微软雅黑";
 }
 body{
-	max-width: 800px;
+	margin: 0 auto;
+	max-width: 1200px;
 }
 a{
 	text-decoration: none;
@@ -14,7 +15,7 @@ a{
 header{
 	position: relative;
 	text-align: center;
-	height: 62px;
+	height: 0.7rem;
 	color: #fff;
 	background: #91D4DA;
 }
@@ -24,13 +25,19 @@ header h1{
 }
 header a{
 	display: inline-block;
-	background: url(../img/11.png) no-repeat 0 16px  ;
-	padding-left:24px; 
 	position: absolute;
 	left: 1.5%;
+	bottom: 1px;
 	color: #fff;
-	font-size: 24px;
-	line-height:62px;
+	font-size: 0.4rem;
+	line-height:0.6rem;
+}
+header img{
+	vertical-align: middle;
+	width: 0.3rem;
+	margin-top: -2px;
+	margin-right: 2px;
+
 }
 nav ul{
 	position: relative;
@@ -38,10 +45,10 @@ nav ul{
 nav li{
 	float: left;
 	width: 20%;
-	height: 64px;
-	font-size:28px;
+	height: 0.6rem;
+	font-size:0.3rem;
 	text-align: center;
-	line-height: 64px;
+	line-height: 0.6rem;
 }
 .move{
 	position: absolute;
@@ -65,12 +72,12 @@ nav li:nth-child(4):hover~.move{
 nav li:nth-child(5):hover~.move{
 	left: 80%
 }
-#tabImg img{
+#tabImg>img{
 	width: 100%;
 }
 #tabImg ul{
-	margin:0 auto;
-	padding-bottom:20px; 
+	margin:0.1rem auto;
+	padding-bottom:0.3rem; 
 	width: 90%;
 	border-bottom:2px solid #ccc;
 }
@@ -80,12 +87,11 @@ nav li:nth-child(5):hover~.move{
 	text-align: center;
 }
 #tabImg li img{
-	width: 80%
+	width: 70%
 }
 #tabImg li a{
-	font-size: 26px;
-	margin: 30px auto;
-	border-radius: 35px;
+	font-size: 0.4rem;
+	margin: -10px auto 0;
 }
 #subfield{
 	border-bottom:20px solid #ccc;
@@ -103,11 +109,11 @@ nav li:nth-child(5):hover~.move{
 	border-right: 2px solid #ccc;
 }
 #subfield li div{
-	height: 2rem;
+	height: 2.5rem;
 
 }
 #subfield li img{
-	width: 80%
+	width: 2rem
 }
 #subfield li h2{
 	font-size: 0.4rem;
