@@ -1,0 +1,74 @@
+body{margin: 30px}
+td{	
+	padding :4px 15px 4px; 
+	border: 1px solid #fff;
+}
+thead  td{
+	color: #fff;
+	background: #000;
+}
+tbody tr:nth-child(-n+3) td{
+	color: red;
+}
+tbody tr:nth-child(even) td{
+	background: #ccc;
+}
+input{
+	margin: 30px 0;
+	width: 100px;
+	-webkit-transition:  all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+input:focus{
+	width: 200px;
+	box-shadow: 0 0 4px blue
+}
+
+#box{
+	width: 250px;
+	height: 150px;
+	position: relative;
+}
+#box>div{
+	width: 0;
+	height: 0;
+	position: absolute;
+	transition: all 0.5s 
+}
+#box div:target{
+	height: 100%;
+	width: 100%;
+	right: 0;
+	bottom: 0
+	
+}
+#div1{
+	background: red
+}
+#div2{
+	background: blue
+}
+#div3{
+	background: yellow
+}
+ul{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 2
+}
+li{
+	float: left;
+}
+a{	
+	display: block;
+	text-align: center;
+	line-height: 30px;
+	text-decoration: none;
+	width: 30px;
+	height: 30px;
+	margin: 0 1px;
+	color: #fff;
+	background: #aaa;
+}
