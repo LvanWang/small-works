@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+ <title>七巧板</title>
+<style type="text/css">
+div{width: 100px;height: 100px;background: #ccc;position: absolute;}
+div:last-child{background:yellow;position: absolute;left: 110px;}
+</style>
+<script type="text/javascript" >
+var parameter=[
+  {p:[{x:0,y:0},{x:800,y:0},{x:400,y:400}],color:"#caff67"},
+  {p:[{x:0,y:0},{x:400,y:400},{x:0,y:800}],color:"#67becf"},
+  {p:[{x:800,y:0},{x:800,y:400},{x:600,y:600},{x:600,y:200}],color:"#ef3d61"},
+  {p:[{x:600,y:200},{x:600,y:600},{x:400,y:400}],color:"#f9f51a"},
+  {p:[{x:400,y:400},{x:600,y:600},{x:400,y:800}],color:"#a594c0"},
+  {p:[{x:200,y:600},{x:400,y:800},{x:0,y:800}],color:"#fa8ecc"},
+  {p:[{x:800,y:400},{x:800,y:800},{x:400,y:800}],color:"#f6ca29"}
+]
+function draw(par,This){
+  This.beginPath();
+  This.moveTo(par.p[0].x,par.p[0].y)
+  for (var i = 1; i < par.p.length; i++) {
+    This.lineTo(par.p[i].x,par.p[i].y)
+  }
+  This.closePath();
+  This.fillStyle=par.color;
+  This.fill();
+}
+window.onload=function(){
+  var cvs=document.getElementById('cvs');
+  cvs.width=800;
+  cvs.height=800;
+  var context=cvs.getContext("2d");
+  for (var i = 0; i < parameter.length; i++) {
+    draw(parameter[i],context) 
+  }
+
+}
+</script>
+</head>
+<body>
+<canvas id="cvs">
+  浏览器不支持，请更换浏览器。
+</canvas>
+</body>
+
+</html>

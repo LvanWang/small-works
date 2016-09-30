@@ -1,0 +1,77 @@
+ <!DOCTYPE html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+ <title>弹性小球</title>
+<style type="text/css">
+*{
+  margin: 0;
+  padding: 0;
+}
+</style>
+<script type="text/javascript" src='1.js'></script>
+<script type="text/javascript">
+var R=8;
+var obj={x:0,y:1000,g:1,vx:1000,vy:1300,color:'blue'}
+var x,y,time
+window.onload=function () {
+  var canvas=document.getElementById('sz');
+  var context=canvas.getContext('2d');
+  resize(canvas)
+  window.onresize=function(){resize(canvas)}
+  time=setInterval(function(){
+    render(context)
+    update(canvas)
+  },50)
+}
+function resize(canvas){
+  x=canvas.width=window.innerWidth||document.body.clientWidth
+  y=canvas.height=window.innerHeight||document.body.clientHeight
+}
+function render(cxt){
+  cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height)
+  cxt.fillStyle=obj.color;
+  cxt.beginPath()
+  cxt.arc(obj.x,obj.y,R,0,2*Math.PI)
+  cxt.closePath()
+  cxt.fill()
+}
+function update(cxt){
+  obj.x+=obj.vx;
+  obj.y+=obj.vy;
+  obj.vy+=obj.g;
+  if (obj.y>=cxt.height-R*2) {
+    obj.y=cxt.height-R*2
+    obj.vy=-obj.vy*0.7
+  }
+  if (obj.x>=cxt.width-R*2) {
+    obj.x=cxt.width-R*2
+    obj.vx=-obj.vx*0.8
+  }
+  if(obj.y<=R){
+    obj.y=R
+    obj.vy=-obj.vy*1.1
+  }
+  if (obj.x<=R) {
+    obj.x=R
+    obj.vx=-obj.vx*0.8
+  }
+  if(obj.vy<=6&&obj.vy>=-6&&obj.y>=y-20){obj.vy=obj.vy*0.5;obj.vx=obj.vx*0.98}
+  if (obj.vx<=1&&obj.vx>=-1) {
+    clearTimeout(time)
+  }
+}
+</script>
+<style type="text/css">
+body{
+  margin: 0;
+  padding: 0;
+}
+</style>
+</head>
+<body style="width: 100%;height: 100%;">
+  <canvas id="sz" style="width: 100%;height: 100%;">
+    浏览器不支持
+  </canvas>
+</body>
+
+</html>

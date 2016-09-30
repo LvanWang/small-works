@@ -1,0 +1,207 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+   <title>任务二十六：行星与飞船（一）</title>
+   <script type="text/javascript">
+  var btn1,btn2,bulletin
+  var img=new Image();
+    img.src="hj.png";
+var hjobj=[
+{id:1,commond:"not","i":0,j:0,r:32},
+{id:2,commond:"not","i":0,j:0,r:92},
+{id:3,commond:"not","i":0,j:0,r:152},
+{id:4,commond:"not","i":0,j:0,r:212},
+]
+  
+ window.onload=function(){
+   btn1=document.getElementById("found").getElementsByTagName('td');
+   btn2=document.getElementById("exercise").getElementsByTagName('td');
+   bulletin=document.getElementById('bulletin')
+  var can=document.getElementById('can')
+  var ctx=can.getContext("2d");
+  can.width=700;
+  can.height=670;
+  for (var i = 0; i < btn1.length; i++) {
+  	btn1[i].index=btn2[i].index=i
+  	btn1[i].onclick=function(){
+  		if (hjobj[this.index].commond=="not"){
+  			hjobj[this.index].commond='stop';
+  			this.innerText="销毁";
+  			hjobj[this.index].i=0
+  			hjobj[this.index].j=0
+        bulletin.innerHTML='<p>飞船发射成功</p>'+bulletin.innerHTML
+  		}
+  		else{
+        if (Math.random()>0.33){
+          hjobj[this.index].commond='not';
+        bulletin.innerHTML='<p>飞船已销毁</p>'+bulletin.innerHTML
+        }else{
+          bulletin.innerHTML='<p>销毁命令未接收到</p>'+bulletin.innerHTML
+        }
+  			 
+  			this.innerText="创建"
+  			btn2[this.index].innerText="起飞"
+        
+  		}
+
+  		return false
+  	}
+  	btn2[i].onclick=function(){
+
+  		if (hjobj[this.index].commond=="exercise"){
+        if (Math.random()>0.33){
+  			   hjobj[this.index].commond='stop';
+           bulletin.innerHTML='<p>飞船已停止飞行</p>'+bulletin.innerHTML
+        }else{
+          bulletin.innerHTML='<p>停止命令未接收到</p>'+bulletin.innerHTML
+        }
+  			this.innerText="起飞"
+  		}
+  		else if(hjobj[this.index].commond=="not"){
+  			return false
+  		}
+  		else{
+        if (Math.random()>0.33){
+  			   hjobj[this.index].commond='exercise';
+           bulletin.innerHTML='<p>飞船已开始飞行</p>'+bulletin.innerHTML
+        }else{
+          bulletin.innerHTML='<p>飞行命令未接收到</p>'+bulletin.innerHTML
+        }
+  			this.innerText="停止"
+  		}
+  		return false
+  	}
+  }
+  setInterval(function(){
+    ctx.clearRect(0,0,700,700)
+    orbit(ctx)
+    for (var i = 0; i < hjobj.length; i++) {
+    	if (hjobj[i].commond!='not')
+    		hj(ctx,hjobj[i])
+    }
+    
+  },50)
+  
+}
+
+
+function hj(ctx,obj){
+    ctx.beginPath()
+    if (obj.commond=='not') return
+    obj.angle = obj.i * Math.PI / 180; // angle of rotation in radians
+    obj.rx =350; obj.ry = 350; // the rotation x and y
+    obj.px =350; obj.py =obj.r; // the objects center x and y
+    obj.radius = obj.ry - obj.py; // the difference in y positions or the radius
+    obj.dx = obj.rx + obj.radius * Math.sin(obj.angle); // the draw x 
+    obj.dy = obj.ry - obj.radius * Math.cos(obj.angle); // the draw y
+    if (obj.j>=400||obj.commond=='stop') {
+    	obj.commond='stop';
+      btn2[obj.id-1].innerText="起飞"
+    	if(obj.j!=0){
+    		obj.j--
+    	}
+    	
+        
+    }else if (obj.commond=="exercise"){
+        obj.i++;
+        obj.j++
+    }
+    if (obj.j>220&&obj.i<300){
+    	ctx.fillStyle="yellow" 
+    }else if(obj.j>=300){
+    	ctx.fillStyle="red"
+    }else{
+    	ctx.fillStyle="green"
+    }
+    ctx.save();
+    ctx.translate(obj.dx,obj.dy);
+    ctx.rotate(obj.angle);
+    ctx.translate(-obj.dx, -obj.dy);
+    ctx.drawImage(img, obj.dx - img.width / 2, obj.dy - img.height / 2);
+    ctx.fillRect(obj.dx+32,obj.dy-21,10,40-obj.j/10)
+    ctx.restore();
+}
+function orbit(ctx){
+	ctx.strokeStyle='#ccc';
+	ctx.fillStyle="blue";
+	ctx.beginPath()
+    ctx.arc(350,350,70,0,2*Math.PI);
+    ctx.fill()
+
+	ctx.beginPath()
+    ctx.arc(350,350,320,0,2*Math.PI);
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.arc(350,350,260,0,2*Math.PI);
+	ctx.stroke()
+		 
+	ctx.beginPath()
+    ctx.arc(350,350,200,0,2*Math.PI);
+	ctx.stroke()
+
+	ctx.beginPath()
+    ctx.arc(350,350,140,0,2*Math.PI);
+	ctx.stroke()
+	
+}
+  </script>  
+  <style type="text/css">
+  body{
+    margin: 0;
+    position: 0
+  }
+  #box{
+    position: absolute;
+    left: 720px;
+    top: 10px
+  }
+  table{
+    border: 1px solid #ccc;
+  }
+  tbody td{
+  	border: 1px solid #ccc;
+  	padding:0 12px; 
+  	cursor: pointer;
+  }
+  #bulletin{
+  overflow :auto;
+  height: 540px;
+  }
+  </style>
+ </head>
+ <body>
+   <canvas id="can" style="border: 1px solid #ccc"></canvas>
+   <div id="box">
+     <table>
+     	<thead>
+     		<tr>
+     			<td>飞船1</td>
+     			<td>飞船2</td>
+     			<td>飞船3</td>
+     			<td>飞船4</td>
+     		</tr>
+     	</thead>
+     	<tbody>
+     		<tr id="found">
+     			<td>创建</td>
+     			<td>创建</td>
+     			<td>创建</td>
+     			<td>创建</td>
+     		</tr>
+     		<tr id="exercise">
+     			<td>起飞</td>
+     			<td>起飞</td>
+     			<td>起飞</td>
+     			<td>起飞</td>
+     		</tr>
+     	</tbody>
+     </table>
+     <p>信息简报</p>
+     <div id="bulletin">
+     
+     </div>
+   </div>
+ </body>
+ </html>

@@ -1,0 +1,146 @@
+ <!DOCTYPE html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+ <title>时钟</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src='1.js'></script>
+<script type="text/javascript">
+var w,h,R,MARGIN_LEFE,MARGIN_TOP;
+var Time=getTime()
+var balls=[];
+window.onload=function () {
+  var canvas=document.getElementById('sz');
+  var context=canvas.getContext('2d');
+  resize(canvas)
+  window.onresize=function(){
+    resize(canvas)
+  }
+  Time=getTime();
+  setInterval(function(){
+    render(context)
+    update()
+  },50)
+}
+
+function resize(canvas){
+  w=canvas.width=(window.innerWidth||document.body.clientWidth)
+  h=canvas.height=(window.innerHeight||document.body.clientHeight)
+  MARGIN_LEFE=w/5;
+  MARGIN_TOP=h/6;
+  R=(w/5*3/108)-1;
+}
+function getTime(){
+var ret=new Date()
+  
+return [ret.getHours(),ret.getMinutes(),ret.getSeconds()]
+}
+function update(){
+  var nextTime=getTime();
+    if (parseInt(nextTime[0]/10)!=parseInt(Time[0]/10)) {
+      addBalls(MARGIN_LEFE,MARGIN_TOP,parseInt(nextTime[0]/10))
+    }
+    if (parseInt(nextTime[0])!=parseInt(Time[0])) {
+      addBalls(MARGIN_LEFE+15*(R+1),MARGIN_TOP,parseInt(nextTime[0]%10))
+    }
+    if (parseInt(nextTime[1]/10)!=parseInt(Time[1]/10)) {
+      addBalls(MARGIN_LEFE+39*(R+1),MARGIN_TOP,parseInt(nextTime[1]/10))
+    }
+    if (parseInt(nextTime[1])!=parseInt(Time[1])) {
+      addBalls(MARGIN_LEFE+54*(R+1),MARGIN_TOP,parseInt(nextTime[1]%10))
+    }
+    if (parseInt(nextTime[2]/10)!=parseInt(Time[2]/10)) {
+      addBalls(MARGIN_LEFE+78*(R+1),MARGIN_TOP,parseInt(nextTime[2]/10))
+    }
+    if (parseInt(nextTime[2])!=parseInt(Time[2])) {
+      addBalls(MARGIN_LEFE+93*(R+1),MARGIN_TOP,parseInt(nextTime[2]%10))
+    }
+    Time=nextTime
+  updateBalls()
+}
+function updateBalls(){
+  for (var i = 0; i < balls.length; i++) {
+    balls[i].x+=balls[i].vx
+    balls[i].y+=balls[i].vy
+    balls[i].vy+=balls[i].g
+    if (balls[i].y>=h-R) {
+      balls[i].y=h-R
+      balls[i].vy=-balls[i].vy*0.8
+    }
+    if(balls[i].x<=0||balls[i].x>=w-R){
+    	balls.splice(i,1)
+    }
+  }
+}
+function addBalls(x,y,num){
+  for (var i = 0; i < digit[num].length; i++) {
+    for (var j = 0; j < digit[num][j].length; j++) {
+      if(digit[num][i][j]==1){
+        var str=Math.floor(Math.random()*16777215).toString(16)
+        if (str.charAt(5)) {
+          str='#'+str
+        }else{str='#0'+str}
+
+        var aBalls={
+          x:x+j*2*(R+1)+(R+1),
+          y:y+i*2*(R+1)+(R+1),
+          g:2+Math.random(),
+          vx:Math.pow(-1,Math.floor(Math.random()*2))*4,
+          vy:-5,
+          color:str
+        }
+
+        balls.push(aBalls)
+      }
+    }
+  }
+}
+function render(cxt){
+  cxt.clearRect(0,0,w,h)
+
+  renderDigit(MARGIN_LEFE,MARGIN_TOP,parseInt(Time[0]/10),cxt)
+  renderDigit(MARGIN_LEFE+15*(R+1),MARGIN_TOP,parseInt(Time[0]%10),cxt)
+  renderDigit(MARGIN_LEFE+30*(R+1),MARGIN_TOP,10,cxt)
+  renderDigit(MARGIN_LEFE+39*(R+1),MARGIN_TOP,parseInt(Time[1]/10),cxt)
+  renderDigit(MARGIN_LEFE+54*(R+1),MARGIN_TOP,parseInt(Time[1]%10),cxt)
+  renderDigit(MARGIN_LEFE+69*(R+1),MARGIN_TOP,10,cxt)
+  renderDigit(MARGIN_LEFE+78*(R+1),MARGIN_TOP,parseInt(Time[2]/10),cxt)
+  renderDigit(MARGIN_LEFE+93*(R+1),MARGIN_TOP,parseInt(Time[2])%10,cxt)
+  for (var i = 0; i < balls.length; i++) {
+    cxt.fillStyle=balls[i].color
+    cxt.beginPath()
+    cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI)
+    cxt.closePath()
+    cxt.fill()
+  }
+}
+
+function renderDigit(x,y,num,cxt){
+  cxt.fillStyle='blue'
+  for (var i = 0; i < digit[num].length; i++) {
+    for (var j = 0; j < digit[num][j].length; j++) {
+      if(digit[num][i][j]==1){
+        cxt.beginPath()
+        cxt.arc(x+j*2*(R+1)+(R+1),y+i*2*(R+1)+(R+1),R,0,2*Math.PI)
+        cxt.closePath()
+        cxt.fill()
+      }
+    }
+  }
+}
+</script>
+<style type="text/css">
+ body{
+ 	 margin: 0;
+ 	 padding: 0;
+ }
+</style>
+</head>
+<body style="height: 100%;width: 100%;">
+	<canvas id="sz" style="height:99%;width: 100%;">
+	  浏览器不支持
+	</canvas>
+</div>
+</body>
+
+</html>
