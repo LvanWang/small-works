@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+   <title>任务二十七：行星与飞船（二）</title>
+  <style type="text/css">
+  body{
+    margin: 0;
+    padding: 0
+  }
+  #box{
+    position: absolute;
+    left: 720px;
+    top: 10px
+  }
+  #bulletin{
+  overflow :auto;
+  height: 540px;
+  }
+  </style>
+ </head>
+ <body>
+   <canvas id="can"></canvas>
+   <div id="box">
+   <div>
+   <label id="sd">动力系统：
+      <label><input type="radio" name="sd" value="0" checked="ture">速度：30，能耗5</label>
+      <label><input type="radio" name="sd" value="1" >速度：50，能耗7</label>
+      <label><input type="radio" name="sd" value="2" >速度：90，能耗9</label>
+   </label><br>
+   <label id="replenish">能源系统：
+      <label><input type="radio" name="replenish" value="0"  checked="ture">能源补充：2</label>
+      <label><input type="radio" name="replenish" value="1" >能源补充：3</label>
+      <label><input type="radio" name="replenish" value="2" >能源补充：4</label>
+   </label><br>
+   	<button id="btn">新的飞船起飞</button>
+   	<form id="console">
+   		
+   	</form>
+   </div>
+    <p>信息简报</p>
+    <div id="bulletin">
+    </div>
+   </div>
+ </body>
+ <script type="text/javascript" src="js/27.js"></script> 
+ </html>
