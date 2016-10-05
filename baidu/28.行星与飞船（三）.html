@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+   <title>任务二十八：行星与飞船（三）</title>
+  <style type="text/css">
+  body{
+    margin: 0;
+    padding: 0
+  }
+  #box{
+    position: absolute;
+    left: 720px;
+    top: 10px;
+    width: 520px;
+    font-size: 12px;
+  }
+  #bulletin{
+  overflow :auto;
+  height: 360px;
+  }
+  #sd,#replenish{
+    display: block;
+    border: 1px solid #ccc;
+    width: 185px;
+    padding: 13px
+  }
+  table{
+    position: absolute;
+    top: 1px;
+    left: 220px;
+    border-collapse:collapse;
+  }
+  td{
+    border: 1px solid #ccc;
+    padding:2px 14px 2px 2px;
+  }
+  thead{
+    background: #ccc;
+  }
+  #console{
+    position: absolute;
+    top: 116px;
+    right: 0
+  }
+  </style>
+ </head>
+ <body>
+   <canvas id="can"></canvas>
+   <div id="box">
+   <div>
+   <label id="sd">动力系统：<br>
+      <label><input type="radio" name="sd" value="0" checked="ture">前进号（速度：30，能耗：5）</label><br>
+      <label><input type="radio" name="sd" value="1" >奔腾号（速度：50，能耗：7）</label><br>
+      <label><input type="radio" name="sd" value="2" >超越号（速度：90，能耗：9）</label>
+   </label><br>
+   <label id="replenish">能源系统：<br>
+      <label><input type="radio" name="replenish" value="0"  checked="ture">劲量型（能源补充：2）</label><br>
+      <label><input type="radio" name="replenish" value="1" >光能型（能源补充：3）</label><br>
+      <label><input type="radio" name="replenish" value="2" >永久型（能源补充：4）</label>
+   </label><br>
+   <table>
+     <thead>
+       <tr>
+         <td>飞船</td>
+         <td>动力系统</td>
+         <td>能源系统</td>
+         <td>当前飞行状态</td>
+         <td>剩余能量</td>
+       </tr>
+     </thead>
+     <tbody>
+     </tbody>
+   </table>
+   	<button id="btn">新的飞船起飞</button>
+
+   	<form id="console">
+   		
+   	</form>
+   </div>
+    <p>信息简报:</p>
+    <div id="bulletin">
+    </div>
+   </div>
+ </body>
+ <script type="text/javascript" src="js/28.js"></script> 
+ </html>
