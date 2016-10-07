@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>任务三十一：表单（三）联动</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/9.css">
+<!--[if lt IE9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+<style type="text/css">
+	body{
+		box-sizing: border-box;
+
+		display: -webkit-flex;		
+		display: -ms-flexbox;
+		display: flex;
+
+		min-width: 800px;
+		margin: 0;
+		padding:10px;
+		font-size:16px;
+		font-family: '微软雅黑';
+	}
+	aside,.box{
+		padding:20px;
+		box-sizing: border-box;
+	}
+	.box{
+		-webkit-flex: auto;
+		-ms-flex: auto;
+		flex：auto;
+
+	}
+	.box>fieldset{
+		margin: 10px auto;
+		width: 100%
+
+	}
+	fieldset{
+		border: 1px solid #ccc;
+		width: 224px;
+		margin: 10px;
+		padding: 10px;
+		border-radius: 8px;
+	}
+	legend{
+		margin-left:20px 
+	}
+	label{
+		display: inline-block;
+		margin: 5px 1px;
+	}
+	button{
+		height: 30px;
+		width: 70px;
+		background: rgb(47, 121, 186);
+		border-radius: 8px;
+		border:none;
+		cursor: pointer;
+		color: #fff;
+		display: block;
+		margin: 30px auto;
+	}
+	#show{
+		min-height:300px;
+	}
+	h3{
+		width: 120px;
+		margin: 30px auto;
+		font-size: 30px;
+	}
+	
+</style>
+
+</head>
+<body>
+	<aside>
+		<form>
+			<fieldset>
+				<legend>类型</legend>
+				<label><input type="radio" name="radio" checked>输入框</label>
+				<label><input type="radio" name="radio">单选框</label>
+				<label><input type="radio" name="radio">多选框</label>
+				<label><input type="radio" name="radio">下拉框</label>
+				<label><input type="radio" name="radio">文本框</label>
+			</fieldset>
+			<fieldset>
+				<legend>配置</legend>
+				<label >名称：<input type="text"  id="label" value="文字"></label><br>
+				<label><input type="radio" name="radio1" checked>必填</label>
+				<label><input type="radio" name="radio1">选填</label>
+				<label>样式
+					<select>
+						<option>样式一</option>
+						<option>样式二</option>
+					</select>
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>规则</legend>
+				<label><input type="radio" name="radio2" checked>文字</label>
+				<label><input type="radio" name="radio2" >数字</label>
+				<label><input type="radio" name="radio2">邮箱</label>
+				<label><input type="radio" name="radio2">电话</label>
+				<label><input type="radio" name="radio2">密码</label>
+			</fieldset>
+			<fieldset>
+				<legend>字符长度设置</legend>
+				<label>字符范围<input type="number" min="0" value="4" style="width: 40px">--<input type="number" min="1" value="16" style="width: 40px"></label>
+			</fieldset>
+			<fieldset style="display: none;">
+				<legend>选项</legend>
+				<input>
+			</fieldset>
+			<button>加入</button>
+		</form>
+	</aside>
+	<div class="box">
+		<fieldset>
+				<legend>效果展示</legend>
+				<div id="show"></div>
+				<button style="display: none">提交</button>
+		</fieldset>
+	</div>
+</body>
+<script type="text/javascript">
+	var fieldset=document.getElementsByTagName('fieldset');
+	var label=document.getElementById('label');
+	var aBtn=document.getElementsByTagName('button');
+	var json={
+		'label':'文字',
+		'tag':'input',
+		'type':'text',
+		'regExp':true,
+		'className':'span1'
+
+	}
+	var arr=[
+		[{'tag':'input','type':'text'},{'tag':'input','type':'radio'},{'tag':'input','type':'checkbox'},{'tag':'select'},{'tag':'textarea'}],
+		[{'type':'text'},{'type':'number'},{'type':'email'},{'type':'tel'},{'type':'password'}]
+	]
+	fieldset[0].onchange=function () {
+		var radio=this.getElementsByTagName('input');
+		for (var i = 0; i < radio.length; i++) {
+			if(radio[i].checked){
+				label.value=radio[i].parentNode.innerText;
+				json.tag=arr[0][i].tag
+				if (i<=2) 
+					json.type=arr[0][i].type
+				else
+					delete(json.type)
+
+				if (i==0||i==4) {
+					fieldset[4].style.display='none'
+					fieldset[3].style.display='block'
+					if (i==0){
+						fieldset[2].style.display='block'
+						fieldset[2].getElementsByTagName('input')[0].checked=true
+					}
+					else
+						fieldset[2].style.display='none'
+				}else{
+					fieldset[2].style.display='none'
+					fieldset[3].style.display='none'
+					fieldset[4].style.display='block'
+				}
+			}
+		}
+	}
+	fieldset[1].onchange=function(){
+
+		if(this.getElementsByTagName('input')[0].checked)
+			json.regExp=true;
+		else
+			json.regExp=false;
+
+
+		if(this.getElementsByTagName('select')[0].selectedIndex==0)
+			json.className='span1'
+		else
+			json.className='span2'
+
+	}
+	fieldset[2].onchange=function () {
+		var radio=this.getElementsByTagName('input');
+		for (var i = 0; i < radio.length; i++) {
+			if(radio[i].checked){
+				label.value=radio[i].parentNode.innerText;
+				json.type=arr[1][i].type
+
+				if (i==0||i==4)
+					fieldset[3].style.display='block'
+				else
+					fieldset[3].style.display='none'
+			}
+		}
+	}
+	fieldset[4].
+	aBtn[0].onclick=function(){
+		aBtn[1].style.display='block';
+		return false 
+	}
+
+</script>
+</html>
+
+

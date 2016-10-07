@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>任务三十一：表单（三）联动</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/9.css">
+<!--[if lt IE9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+<style type="text/css">
+	div{
+		width: 320px;
+		margin: 50px auto;
+		font-family: '微软雅黑'
+	}
+	#radio label{
+		padding-right:50px
+	}
+
+	.none{
+		display: none;
+	}
+	
+</style>
+
+</head>
+<body>
+	<div>
+		<div id="radio" >
+			<label>
+				<input type="radio" name="radio" checked>在校生
+			</label>
+			<label>
+				<input type="radio" name="radio">非在校生
+			</label>
+		</div>
+		<div id="radio1">
+			<label>
+				学校
+				<select id="select">
+					<option>北京</option>	
+					<option>上海</option>	
+					<option>广州</option>	
+				</select>
+				<select id="opt">
+					<option>北京大学</option>	
+					<option>清华大学</option>	
+					<option>北京航空航天大学</option>	
+				</select>
+			</label>
+		</div>
+		<div id="radio2" class="none">
+			<label>
+				就业单位<input>
+			</label>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var radio1=document.getElementById('radio1')
+	var radio2=document.getElementById('radio2')
+	var opt=document.getElementById('opt').getElementsByTagName('option')
+	var arr=[
+		["北京大学","清华大学","北京航空航天大学"],
+		["复旦大学", "上海交通大学", "同济大学"],
+		["广州大学", "中山大学", "华南理工大学"]
+	]
+	document.getElementById('radio').onchange=function () {
+		if (document.getElementsByTagName('input')[0].checked){
+			radio1.className=''
+			radio2.className='none'
+		}else{
+			radio2.className=''
+			radio1.className='none'
+		}
+	}
+	document.getElementById('select').onchange=function(){
+		for(var i=0;i<opt.length;i++)
+			opt[i].innerText=arr[this.selectedIndex][i]
+	}
+</script>
+</html>
+
+

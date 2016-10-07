@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>29.表单（一）单个表单项的检验</title>
+<link rel="stylesheet" type="text/css" href="css/none.css">
+<link rel="stylesheet" type="text/css" href="css/8.css">
+<!--[if lt IE9]> 
+<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+<![endif]-->
+<!--[if lte IE 8]> 
+<noscript>
+     <style>.html5-wrappers{display:none!important;}</style>
+     <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+     </div>
+</noscript>
+<![endif]-->
+<style type="text/css">
+	div{
+		width: 320px;
+		margin: 50px auto;
+	}
+	label{
+		font-size:16px;
+		font-family: '微软雅黑'
+
+	}
+	input{
+		width: 200px;
+		height: 30px;
+		padding: 0;
+		border-radius:  8px;
+		border-width: 1px 
+	}
+	button{
+		font-size:16px;
+		font-family: '微软雅黑';
+		margin-left:10px ; 
+		height: 30px;
+		background: rgb(47, 121, 186);
+		border-radius: 8px;
+		border:none;
+		cursor: pointer;
+		color: #fff;
+	
+	}
+	p{
+		padding-top:10px;
+		padding-left:36px;
+
+	}
+</style>
+
+</head>
+<body>
+	<div>
+	<label>名称 <input><button>验证</button></label>
+	<p>请输入4〜16个字符</p>
+	</div>
+</body>
+<script type="text/javascript">
+	var text=document.getElementsByTagName('input')[0];
+	var btn=document.getElementsByTagName('button')[0];
+	var p=document.getElementsByTagName('p')[0];
+	btn.onclick=function () {
+		var value=text.value
+		if (verify(value)>=4&&verify(value)<=16) {
+			p.innerHTML='输入正确！'
+			p.style.color='green'
+			text.style.borderColor='green'
+		}else{
+			if (value=='')
+				p.innerHTML='姓名不能为空！'
+			else
+				p.innerHTML='请输入4〜16个字符!'
+
+			p.style.color='red'
+			text.style.borderColor='red'
+		}
+	}
+
+	function verify(str){
+		var num=0
+		for (var i = 0; i < str.length; i++) {
+			if (str.charCodeAt(i)<=128)
+				num++
+			else
+				num+=2
+		}
+		return num
+	}
+
+</script>
+</html>
+
+
