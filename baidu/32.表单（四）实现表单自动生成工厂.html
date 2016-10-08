@@ -58,6 +58,26 @@
 		display: inline-block;
 		margin: 5px 1px;
 	}
+	#option{
+		width: 224px;
+		min-height: 100px;
+	}
+	#option span{
+		display: inline-block;
+		border: 1px solid #ccc;
+		margin: 2px 2px;
+		padding: 4px;
+		background: #ccc;
+		line-height: 16px;
+		-webkit-transition: all 0.2s ease-in-out ;
+		-moz-transition: all 0.2s ease-in-out ;
+		transition: all 0.2s ease-in-out ;
+		cursor: pointer;
+	}
+	#option .span{
+		background: #000;
+		color: #fff;
+	}
 	button{
 		height: 30px;
 		width: 70px;
@@ -71,6 +91,10 @@
 	}
 	#show{
 		min-height:300px;
+	}
+	#show>div{
+		width: 300px;
+		margin: 5px auto;
 	}
 	h3{
 		width: 120px;
@@ -93,16 +117,8 @@
 				<label><input type="radio" name="radio">文本框</label>
 			</fieldset>
 			<fieldset>
-				<legend>配置</legend>
-				<label >名称：<input type="text"  id="label" value="文字"></label><br>
-				<label><input type="radio" name="radio1" checked>必填</label>
-				<label><input type="radio" name="radio1">选填</label>
-				<label>样式
-					<select>
-						<option>样式一</option>
-						<option>样式二</option>
-					</select>
-				</label>
+				<legend>命名</legend>
+				<label >名称：<input type="text"  id="label" value="文字"></label>
 			</fieldset>
 			<fieldset>
 				<legend>规则</legend>
@@ -112,13 +128,12 @@
 				<label><input type="radio" name="radio2">电话</label>
 				<label><input type="radio" name="radio2">密码</label>
 			</fieldset>
-			<fieldset>
-				<legend>字符长度设置</legend>
-				<label>字符范围<input type="number" min="0" value="4" style="width: 40px">--<input type="number" min="1" value="16" style="width: 40px"></label>
-			</fieldset>
 			<fieldset style="display: none;">
 				<legend>选项</legend>
-				<input>
+				<input  value="按回车增加选项">
+				<input style="display: none">
+
+				<div id="option"></div>
 			</fieldset>
 			<button>加入</button>
 		</form>
@@ -127,21 +142,22 @@
 		<fieldset>
 				<legend>效果展示</legend>
 				<div id="show"></div>
-				<button style="display: none">提交</button>
 		</fieldset>
 	</div>
 </body>
 <script type="text/javascript">
 	var fieldset=document.getElementsByTagName('fieldset');
 	var label=document.getElementById('label');
-	var aBtn=document.getElementsByTagName('button');
+	var optionText=fieldset[3].getElementsByTagName('input')[0];
+	var option=fieldset[3].getElementsByTagName('div')[0];
+	var Btn=document.getElementsByTagName('button')[0];
+	var show=document.getElementById('show');
+	var num=0
 	var json={
 		'label':'文字',
 		'tag':'input',
 		'type':'text',
-		'regExp':true,
-		'className':'span1'
-
+		'option':[]
 	}
 	var arr=[
 		[{'tag':'input','type':'text'},{'tag':'input','type':'radio'},{'tag':'input','type':'checkbox'},{'tag':'select'},{'tag':'textarea'}],
@@ -159,8 +175,7 @@
 					delete(json.type)
 
 				if (i==0||i==4) {
-					fieldset[4].style.display='none'
-					fieldset[3].style.display='block'
+					fieldset[3].style.display='none'
 					if (i==0){
 						fieldset[2].style.display='block'
 						fieldset[2].getElementsByTagName('input')[0].checked=true
@@ -169,46 +184,132 @@
 						fieldset[2].style.display='none'
 				}else{
 					fieldset[2].style.display='none'
-					fieldset[3].style.display='none'
-					fieldset[4].style.display='block'
+					fieldset[3].style.display='block'
 				}
 			}
 		}
 	}
-	fieldset[1].onchange=function(){
-
-		if(this.getElementsByTagName('input')[0].checked)
-			json.regExp=true;
-		else
-			json.regExp=false;
-
-
-		if(this.getElementsByTagName('select')[0].selectedIndex==0)
-			json.className='span1'
-		else
-			json.className='span2'
-
-	}
 	fieldset[2].onchange=function () {
 		var radio=this.getElementsByTagName('input');
-		for (var i = 0; i < radio.length; i++) {
+		for (var i = 0; i < radio.length; i++)
 			if(radio[i].checked){
 				label.value=radio[i].parentNode.innerText;
 				json.type=arr[1][i].type
+			}
+	}
+	optionText.onfocus=function(){
+		
+		if (this.value=='按回车增加选项')
+			this.value=''
+		
+		
+		this.onkeydown=function(e){
+			var e=e||event
+			
+			if (e.keyCode==13){
+				if(new RegExp(/(^\s|\s$)/).test(this.value)){
+					alert('开头结尾不允许有空格')
+					return false
+				}
+				if(this.value=='')
+					return false
+				if(this.value=='')
+					return false
+				
+				if (spanVerify(optionText.value))
+					return false
 
-				if (i==0||i==4)
-					fieldset[3].style.display='block'
-				else
-					fieldset[3].style.display='none'
+				option.innerHTML+='<span>'+optionText.value+'</span>'
+				json.option.push(optionText.value)
+				spanClick(optionText.value)
+				optionText.value=''
+				return false
+				
 			}
 		}
 	}
-	fieldset[4].
-	aBtn[0].onclick=function(){
-		aBtn[1].style.display='block';
+	optionText.onblur=function(){
+		if (this.value=='')
+			this.value='按回车增加选项'
+		this.onkeydown=null
+	}
+	Btn.onclick=function(){
+		num++
+		json.label=label.value
+		var str=''
+		if (json.type) {
+			if (json.option[0]){
+				if (json.type=='radio'||json.type=='checkbox'){
+					for (var i = 0; i < json.option.length; i++)
+						str+='<label><input type="'+json.type+'"name="'+num+'">'+json.option[i]+'</label>'
+					show.innerHTML+='<div>'+str+'</div>'
+				}else{
+					show.innerHTML+='<div><label>'+json.label+':<input type="'+json.type+'"></label></div>'
+				}
+			}else{
+
+				if (json.type=='radio'||json.type=='checkbox'){
+					alert('没有选项')
+					return false
+				}
+				show.innerHTML+='<div><label>'+json.label+':<input type="'+json.type+'"></label></div>'
+			}
+
+		}else{
+			if (json.tag=='select'){
+				if (!json.option[0]){
+					alert('没有选项')
+					return false
+				}
+				for (var i = 0; i < json.option.length; i++) {
+					str+='<option>'+json.option[i]+'</option>'
+				}
+				show.innerHTML+='<div><label>'+json.label+':<select>'+str+'</select></label></div>'
+			}
+			else{
+				show.innerHTML+='<div><label>'+json.label+':<textarea></textarea></label></div>'
+			}
+
+		}
 		return false 
 	}
 
+function spanVerify(value){
+	var aSpan=option.getElementsByTagName('span')
+	var a=false
+	for (var i = 0; i < aSpan.length;i++){
+		if(aSpan[i].innerText==value){
+			optionText.value=''
+			a=true
+		}	
+	}
+	return a
+
+}
+function spanClick(value){
+	var aSpan=option.getElementsByTagName('span');
+	for (var i = 0; i < aSpan.length;i++){
+		aSpan[i].index=i
+		aSpan[i].onmouseover=function(){
+			this.str=optionText.value
+			optionText.value='点击删除！'
+			optionText.style.backgroundColor="#ccc"
+			this.className='span'
+		}
+		aSpan[i].onmouseout=function(){
+			optionText.value=this.str
+			optionText.style.backgroundColor=""
+			this.className='#ccc'
+		}
+		aSpan[i].onclick=function(){
+			optionText.value=this.str
+			optionText.style.backgroundColor=""
+			json.option.splice(json.option.indexOf(this.innerText),1)
+			spanClick(this.innerText)
+			this.parentNode.removeChild(this)
+		}
+	}
+}
 </script>
 </html>
 
