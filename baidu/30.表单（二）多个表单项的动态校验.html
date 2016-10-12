@@ -102,10 +102,10 @@
 	var p=document.getElementsByTagName('p');
 	var arr=[
 				{p:'必填，长度为4〜16个字符',error:'请检查名称字符数'},
-				{p:'必填，6〜16位数字或字母',error:'请输入6到16位字符且只能为数字和字母',reg:new RegExp(/^[\w\d]{6,16}$/)},
-				{p:'必填，重复密码',error:'两次密码输入不一致',reg:new RegExp(/^[\w\d]{6,16}$/)},
-				{p:'请输入邮箱',error:'请确认邮箱格式',reg:new RegExp(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)},
-				{p:'请输入11位的手机号码',error:'请确认手机格式',reg:new RegExp(/^1[34578]\d{9}$/)}
+				{p:'必填，6〜16位数字或字母',error:'请输入6到16位字符且只能为数字和字母',reg:new RegExp("^[\\w\\d]{6,16}$")},
+				{p:'必填，重复密码',error:'两次密码输入不一致',reg:new RegExp("^[\\w\\d]{6,16}$")},
+				{p:'请输入邮箱',error:'请确认邮箱格式',reg:new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")},
+				{p:'请输入11位的手机号码',error:'请确认手机格式',reg:new RegExp("^1[34578]\d{9}$")}
 			]
 	for (var i = 0; i < text.length; i++){
 		text[i].index=i;
@@ -148,8 +148,11 @@
 			judge=(error(val)<=16&&error(val)>=4?true:false)
 		
 		else if (i==2){
+			arr[2].error='两次密码输入不一致'
 			if(arr[1].reg.test(val))
 				judge=(text[1].value==text[2].value)
+			else
+				arr[2].error=arr[1].error
 		}
 
 		else
@@ -181,6 +184,7 @@ function error(str){
 	return num
 }
 </script>
+
 </html>
 
 
