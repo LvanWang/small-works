@@ -93,12 +93,12 @@ footer{
 		width: 33.3%;
 	}
 }
-@media (max-width:990px ) {
+@media (max-width:1100px ) {
 	main .content>div{
 		width:50%;
 	}
 }
-@media (max-width:770px ) {
+@media (max-width:900px ) {
 	main .content>div{
 		width: 100%;
 	}
