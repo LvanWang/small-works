@@ -88,12 +88,12 @@ footer{
 	line-height: 100px
 }
 
-@media (min-width:768px ) {
+@media (min-width:868px ) {
 	main .content>div{
 		width: 50%;
 	}
 }
-@media (min-width:992px ) {
+@media (min-width:1092px ) {
 	main .content>div{
 		width: 33.33%;
 	}
