@@ -2,8 +2,12 @@ body {
     min-width: 1220px;
     font: 12px/150% Arial, Verdana, "\5b8b\4f53";
     color: #666;
+    position: relative;
 }
-
+main{
+    width: 1210px;
+    margin: 0px auto;
+}
 nav a ,nav h3{
     font-family: "Microsoft YaHei", tahoma, arial, "Hiragino Sans GB", "\5b8b\4f53", sans-serif;
 }
@@ -575,7 +579,7 @@ nav .ul2 .financial {
 }
 #focus{
 	position: relative;
-	left: 244px;
+	left: 212px;
 	width: 1000px
 
 }
